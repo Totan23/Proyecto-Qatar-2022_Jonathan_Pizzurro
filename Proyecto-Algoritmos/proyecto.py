@@ -127,32 +127,33 @@ def vampiro(n):
 
 def estadio_modelo(): #funcion para imprimir el estadio
     print("""
-        ______________________________________________
-       /                                              \                  
-      /                                                \                          
-     /                                                  \
-    /                                                    \
-   /                                                      \
-  /                                                        \
-  \                                                        /
-   \                                                      /
-    \                                                    /
-     \                                                  /
-      \                                                /
-       \                                              /
-        ---------------------|  |---------------------
-    """)
+        -------------------------------------------------
+       /  x-1 x-2 x-3 x-4 x-5 x-6 x-7 x-8 x-9 x-10       \                          
+      /                                                   \                 
+     /              x-11 x-12 x-13 x-14 x-15               \                        
+    /                                                       \                       
+   /         VIP      x-1 x-2 x-3 x-4 x-5                    \                      
+  /                                                           \ 
 
+  \          VIP      x-6 x-7 x-8 x-9 x-10                    /
+   \                                                         /
+    \               x-16 x-17 x-18 x-19 x-20                /
+     \                                                     /
+      \ x-21 x-22 x-23 x-24 x-25 x-26 x-27 x-28 x-29 x-30 /
+       \                                                 /
+        ---------------------|  |------------------------
+    """)
 asientos_ocupado = []
 clientes = []
 vip_tot = 0
 vip_gastado = 0
 boleto_lista = []
 boleto_cantidad_lista = []
+lista_clientes = []
 
 while True:
 
-    opcion = input("\n***BIENVENIDO***\n Que desea ver?\n 1. Gestion de partidos y estadios\n 2. Gestion de venta de entradas\n 3. Gestion de restaurantes\n 4. Gestion de venta de restaurantes \n 5. Gestion de asistencia de partidos\n 6. Indicadores de gestión (Estadísticas)\n >>> ")
+    opcion = input("\n***BIENVENIDO! AL PROYECTO: QATAR 2022 ⚽***\n Que desea ver?\n 1. Gestion de partidos y estadios\n 2. Gestion de venta de entradas\n 3. Gestion de restaurantes\n 4. Gestion de venta de restaurantes \n 5. Gestion de asistencia de partidos\n 6. Indicadores de gestión (Estadísticas)\n >>> ")
     while opcion != "1" and opcion != "2" and opcion != "3" and opcion != "4" and opcion != "5" and opcion != "6":
         opcion = input("\n***BIENVENIDO***\n Que desea ver?\n 1. Gestion de partidos y estadios\n 2. Gestion de venta de entradas\n 3. Gestion de restaurantes\n 4. Gestion de venta de restaurantes \n 5. Gestion de asistencia de partidos\n 6. Indicadores de gestión (Estadísticas)\n >>> ")
    
@@ -252,8 +253,9 @@ while True:
             entrada = input("ERROR! Desea que su entrada sea general o vip.\n 1. general(50$)\n 2. vip(120$)\n ")
 
         if entrada == "1": 
+            estadio_modelo()
             #si la opcion entrada es igual a 1 significa que su entrada es general por lo tanto entrara en este if   
-            asiento = input(f"Seleccione un asiento entre 1 y {mostrar_capacidad[0]} (los asientos van por numero)\n ")
+            asiento = input(f"\nSeleccione un asiento entre 1 y {mostrar_capacidad[0]} (los asientos van por numero)\n ")
             while not asiento.isnumeric() or f"{comprar_partido}-{asiento}" in asientos_ocupado or not int(asiento) >= 1 or not int(asiento) <= mostrar_capacidad[0]:
                 asiento = input(f"ERROR/ASIENTO OCUPADO! Seleccione un asiento entre 1 y {mostrar_capacidad[0]} (los asientos van por numero)\n ")
             precio = 50
@@ -262,10 +264,11 @@ while True:
             if vampiro(int(cedula)) == True:
                 precio_tot = (precio + (precio * IVA))/2
                 print("***FELICIDADES***, tiene un 50% de descuento en el precio total debido a que su cedula es un numero vampiro\n")
-            print(f"Su asiento es el: {asiento}, con un costo de: {precio} mas el IVA {precio * IVA} con un total de {int(cantidad_boleto) * precio_tot} codigo de boleto: {comprar_partido}-{asiento} cantidad de boletos {cantidad_boleto}")
+            print(f"**Su asiento es el: {asiento}, con un costo de: {precio} mas el IVA {precio * IVA} con un total de {int(cantidad_boleto) * precio_tot} codigo de boleto: {comprar_partido}-{asiento} cantidad de boletos {cantidad_boleto}**")
 
 
         elif entrada == "2":
+            estadio_modelo()
             #si la opcion entrada es igual a 1 significa que su entrada es vip por lo tanto entrara en este otro if 
             asiento = input(f"Seleccione un asiento entre 1 y {mostrar_capacidad[1]} (los asientos van por numero)\n ")
             while not asiento.isnumeric() or f"{comprar_partido}-{asiento}" in asientos_ocupado or not int(asiento) >= 1 or not int(asiento) <= mostrar_capacidad[1]:
@@ -290,11 +293,8 @@ while True:
                 vip_gastado += precio_tot
                 vip_tot += 1
             entrada = entradas(entrada, cantidad_boleto, comprar_partido, asiento) #ya con los atributos definidos se realiza de una vez el constructor para la clase entradas y cliente y se agregan a las listas indicadas
-            
             clienteObjeto = cliente(nombre, edad, cedula, entrada)
-
             clientes.append(clienteObjeto)
-
             codigo = f"{comprar_partido}-{asiento}" #codigo es para despues validar los asientos en la gestion de asistencias a partidos
             asientos_ocupado.append(codigo)
             boleto_lista.append(codigo)
@@ -414,8 +414,8 @@ while True:
                                         sum_v = 0  
                                         for i in range(1,num_cedula):  
                                             if (num_cedula % i == 0):  
-                                                sum_v=sum_v + i  
-                                        if(sum_v==num_cedula):  
+                                                sum_v = sum_v + i  
+                                        if(sum_v == num_cedula):  
                                             print("\n***Su cedula es un numero perfecto. Tiene un descuento de 15%***\n")
                                             cantidadAPagar = int(cantidad)*(producto_escogido_nombre.precio - (producto_escogido_nombre.precio * 0.15)) #Cantidad total a pagar con el descuento del numero perfecto
                                         else:  
@@ -445,7 +445,8 @@ while True:
                                         # for producto in range(1,restaurant.productos):
                                         #     if restaurant.productos[producto] == producto_escogido_nombre:
                                         #         remove(restaurant.producots[producto])
-    
+                else:
+                    print("\nlo siento no eres cliente vip :( ")
 
     # Gestión de asistencia a partidos    
     elif opcion == "5":
@@ -469,17 +470,19 @@ while True:
     elif opcion == "6":
         #if por si el usuario desea ver las estadisticas
         print("\n***Bienvenido a las estadisticas!***".upper())
+        #promedio de cuanto gasta un cliente vip entre entradas y restaurante
         if vip_tot == 0:
-            print("No hay nada que promediar :( ")
+            print("\nNo hay nada que promediar :( ")
         else:
             print(f"\n*El gasto promedio de un cliente vip es: {vip_gastado/vip_tot}\n") #Para esto se utilizaron contadores que vayan sumando el precio total de los vips en todo lo que gastan y dividirlo entre la cantidad de vips que hay
 
-        for x in partidos_totales:
-            if comprar_partido == x.id: #si comprar_partido es igual al id appendeara la cantidad de boletos que se hayan comprado y luego sacara la max cantidad de boletos
-                boleto_cantidad_lista.append(int(cantidad_boleto))
-                max_boleto = max(boleto_cantidad_lista)
-                print(f"*El partido con mayor asistencias fue el {x.id} con {max_boleto} boletos vendidos")
-      
+        #partido con mayor boletos vendidos (no funciona xd )
+        # for x in clientes:
+        #     if comprar_partido == entrada.id: #si comprar_partido es igual al id appendeara la cantidad de boletos que se hayan comprado y luego sacara la max cantidad de boletos
+        #         boleto_cantidad_lista.append(int(cantidad_boleto))
+        #         max_boleto = max(boleto_cantidad_lista)
+                # print(f"*El partido con mayor boletos vendidos fue el {x.id} con {max_boleto} boletos vendidos")
+
 
 
 
